@@ -15,23 +15,18 @@ public class Main {
         String[] temporary;
         int ruleCounter=0; //count the rules from a non-terminal expression
 
-        for (int i=0; i<splittedInput.length;i++)
-        {
-            temp=splittedInput[i].substring(2); //Contains the alternatives
-            temporary=temp.split("\\|");
-            for(int j=0; j< temporary.length; j++)
-            {
-                ruleCounter=0;
-                for(int k=0; k< substitutionRules.size();k++)
-                {
-                    if(substitutionRules.get(k).startsWith(splittedInput[i].substring(0,1)))
-                    {
+        for (String s : splittedInput) {
+            temp = s.substring(2); //Contains the alternatives
+            temporary = temp.split("\\|");
+            for (String value : temporary) {
+                ruleCounter = 0;
+                for (String substitutionRule : substitutionRules) {
+                    if (substitutionRule.startsWith(s.substring(0, 1))) {
                         ruleCounter++;
                     }
                 }
-                temp=splittedInput[i].substring(0,1)+String.valueOf(ruleCounter)+"-"+temporary[j];
-                if(!substitutionRules.contains(temp))
-                {
+                temp = s.charAt(0) + String.valueOf(ruleCounter) + "-" + value;
+                if (!substitutionRules.contains(temp)) {
                     substitutionRules.add(temp);
                 }
             }
@@ -95,10 +90,10 @@ public class Main {
                 {
                     //It's a non-terminal letter
                     temp=temp+"0";
-                    for (int j = 0; j < substitutionRules.size(); j++) {
-                        if (temp.equals(substitutionRules.get(j).substring(0, 2)) && generated.length()<=w.length()) {
+                    for (String substitutionRule : substitutionRules) {
+                        if (temp.equals(substitutionRule.substring(0, 2)) && generated.length() <= w.length()) {
                             //Use the first rule for this nonTerminal expression
-                            generated = generated.substring(0,i)+substitutionRules.get(j).substring(3)+generated.substring(i+1);
+                            generated = generated.substring(0, i) + substitutionRule.substring(3) + generated.substring(i + 1);
                             history = history + temp;
                         }
                     }
@@ -127,20 +122,18 @@ public class Main {
                     {
                         lastRuleChanged=false;
                         int cauntOfChangedLetter=0;
-                        for(int j=0; j<substitutionRules.size();j++) {
-                            if(substitutionRules.get(j).contains(temp) && lastRuleChanged==false) //got how made the bad nonTerminal letter
+                        for (String substitutionRule : substitutionRules) {
+                            if (substitutionRule.contains(temp) && !lastRuleChanged) //got how made the bad nonTerminal letter
                             {
-                                temp= substitutionRules.get(j).charAt(0)+String.valueOf(Integer.valueOf(substitutionRules.get(j).charAt(1))-47);
-                                cauntOfChangedLetter=substitutionRules.get(j).substring(3).length();
-                                lastRuleChanged=true;
+                                temp = substitutionRule.charAt(0) + String.valueOf((int) substitutionRule.charAt(1) - 47);
+                                cauntOfChangedLetter = substitutionRule.substring(3).length();
+                                lastRuleChanged = true;
                             }
                         }
-                        for(int j=0; j<substitutionRules.size();j++)
-                        {
-                            if(substitutionRules.get(j).contains(temp))
-                            {
-                                generated=generated.substring(0,pointer)+substitutionRules.get(j).substring(3)+generated.substring(pointer+cauntOfChangedLetter);
-                                history=history.substring(0,2+pointer*2)+substitutionRules.get(j).substring(0,2)+history.substring(4+pointer*2);
+                        for (String substitutionRule : substitutionRules) {
+                            if (substitutionRule.contains(temp)) {
+                                generated = generated.substring(0, pointer) + substitutionRule.substring(3) + generated.substring(pointer + cauntOfChangedLetter);
+                                history = history.substring(0, 2 + pointer * 2) + substitutionRule.substring(0, 2) + history.substring(4 + pointer * 2);
                                 //Use the next rule for this nonTerminal expression
                             }
                         }
@@ -153,10 +146,10 @@ public class Main {
                     for(int j=0; j< substitutionRules.size();j++)
                     {
                         db++;
-                        if(substitutionRules.get(j).contains(temp) && lastRuleChanged==false) //got how made the bad terminal letter
+                        if(substitutionRules.get(j).contains(temp) && !lastRuleChanged) //got how made the bad terminal letter
                         {
                             db--;
-                            temp= substitutionRules.get(j).substring(0,1)+String.valueOf(Integer.valueOf(substitutionRules.get(j).charAt(1))-47); //-------------------------------------------------------------------------
+                            temp= substitutionRules.get(j).charAt(0)+String.valueOf((int) substitutionRules.get(j).charAt(1) -47); //-------------------------------------------------------------------------
                             //define the next rule
                             lastRuleChanged=true;
 
@@ -190,9 +183,8 @@ public class Main {
                 else
                 {
                     out.println("We can't generate the input word from these rules:");
-                    for(int i=0; i< substitutionRules.size();i++)
-                    {
-                        out.println(substitutionRules.get(i));
+                    for (String substitutionRule : substitutionRules) {
+                        out.println(substitutionRule);
                     }
                 }
                 finish=true;
