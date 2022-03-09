@@ -53,57 +53,6 @@ public class TopDownAnalyzer {
     }
 
 
-    /*
-    public static String applyNextRuleFor(char nonTerminal, String generatedWord, int numberOfRule)
-    {
-
-        List<String> nonTerminalLetterAndPosition=new ArrayList<>();
-        //List<Integer>nonTerminalAppliedRuleNumber=new ArrayList<>();
-
-        for(int i=0; i<generatedWord.length();i++) { //megállapitom hol fordul elő a keresett nemterminális
-            if (generatedWord.charAt(i) == nonTerminal) {
-                if (!nonTerminalLetterAndPosition.contains(nonTerminal + "-" + String.valueOf(i))) {
-                    nonTerminalLetterAndPosition.add(nonTerminal + "-" + String.valueOf(i));
-                    //nonTerminalAppliedRuleNumber.add(0);
-                }
-            }
-        }
-
-            List <String> rules=getRulesFor(nonTerminal);
-            String eleje="", vége="", közepe="";
-
-            String word =getWord(getInput());
-
-            int i=generatedWord.length()-1;
-            while (i>=0)
-            {
-                if(generatedWord.charAt(i)==nonTerminal) {
-                    for (int j=0; j<nonTerminalLetterAndPosition.size();j++) {
-                        if(Integer.parseInt(nonTerminalLetterAndPosition.get(j).substring(2))==i) {
-                            vége=generatedWord.substring(Integer.parseInt(nonTerminalLetterAndPosition.get(j).substring(2))+1);
-                            //közepe=rules.get(nonTerminalAppliedRuleNumber.get(j)).substring(2);
-                            if(rules.size()>=numberOfRule)
-                            {
-                                közepe=rules.get(numberOfRule).substring(2);
-                            }
-                            else {
-                                out.println("nem levezethető");
-                                return "";
-                            }
-                            eleje=generatedWord.substring(0,Integer.parseInt(nonTerminalLetterAndPosition.get(j).substring(2)));
-                            generatedWord=eleje+közepe+vége;
-                            //nonTerminalAppliedRuleNumber.set(j,nonTerminalAppliedRuleNumber.get(j)+1);
-
-                            out.println(generatedWord);
-                        }
-                    }
-                }
-                i--;
-            }
-
-    return generatedWord;
-    }
-    */
 
     public static String applyThisRuleFor(int ruleNumber,int indexOfNonTerminal,char nonTerminal, String generatedWord){
         List<String> rules=getRulesFor(nonTerminal);
