@@ -90,7 +90,7 @@ public class TopDownAnalyzer {
         memory.add(generatedWord);
 
         String word=getWord(getInput());
-        int index=0; //progress in thw word to be generated
+        int index=0; //progress in the word to be generated
         int numberOfRule=0;
         char lastNonTerminal='?'; //the simplest solution for backTrack
 
