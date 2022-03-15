@@ -39,7 +39,7 @@ public class TopDownAnalyzer {
                 numberOfRule=0;
             }
 
-            if (components.isNonTerminal(generatedWord, index)) { //It's a non terminal letter (capital letter)
+            if (components.isNonTerminal(generatedWord.charAt(index))) { //It's a non terminal letter (capital letter)
                 lastNonTerminal=generatedWord.charAt(index);
                 generatedWord=components.applyThisRuleFor(numberOfRule,index,lastNonTerminal,generatedWord);
                 if(!memory.contains(generatedWord)) { //add last step of derivation to the memory
@@ -50,7 +50,7 @@ public class TopDownAnalyzer {
                 }
                 if(generatedWord.length()> word.length()||
                         //shouldn't generate longer word than the original one
-                        (components.isTerminal(generatedWord, index) && generatedWord.charAt(index)!=word.charAt(index)))
+                        (components.isTerminal(generatedWord.charAt(index)) && generatedWord.charAt(index)!=word.charAt(index)))
                 //and shouldn't get wrong terminal letter
                 {
                     memory.remove(memory.size()-1);

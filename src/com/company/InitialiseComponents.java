@@ -99,12 +99,55 @@ public class InitialiseComponents {
         String [] rawInput=input.split("#"); //separate the input to word and rules
         return rawInput[0];
     }
-    public boolean isTerminal(String generatedWord, int index) {//If it's a non-capital letter return true
-        return generatedWord.charAt(index) > 96 && generatedWord.charAt(index) < 123;
+
+    public boolean isTerminal(char character){//If it's a non-capital letter return true
+        return character>96 && character<123;
     }
 
-    public boolean isNonTerminal(String generatedWord, int index) { //If it's a capital letter return true
-        return generatedWord.charAt(index) > 64 && generatedWord.charAt(index) < 91;
+    public boolean isNonTerminal(char character) { //If it's a capital letter return true
+        return character>64 && character<91;
     }
-
+    public List<Character> getTableLeftElements(List<String> rulesLeft){
+        List<Character> leftElements=new ArrayList<>();
+        for (String s : rulesLeft) {
+            for (int i = 0; i < s.length(); i++) {
+                if (isNonTerminal(s.charAt(i))) {
+                    if (leftElements.size() > 0) {
+                        for (int j = 0; j < leftElements.size(); j++) {
+                            if (leftElements.get(j) == s.charAt(i)) {
+                                break;
+                            } else if (j + 1 == leftElements.size()) {
+                                leftElements.add(s.charAt(i));
+                            }
+                        }
+                    } else {
+                        leftElements.add(s.charAt(i));
+                    }
+                }
+            }
+        }
+        return leftElements;
+    }
+    public List<Character> getTableRightElements(List<String> rulesRight) {
+        List<Character> rightElements=new ArrayList<>();
+        for (String s : rulesRight) {
+            for (int i = 0; i < s.length(); i++) {
+                if (isTerminal(s.charAt(i))) {
+                    if (rightElements.size() > 0) {
+                        for (int j = 0; j < rightElements.size(); j++) {
+                            if (rightElements.get(j) == s.charAt(i)) {
+                                break;
+                            } else if (j + 1 == rightElements.size()) {
+                                rightElements.add(s.charAt(i));
+                            }
+                        }
+                    } else {
+                        rightElements.add(s.charAt(i));
+                    }
+                }
+            }
+        }
+        rightElements.add('#');
+        return rightElements;
+    }
 }
