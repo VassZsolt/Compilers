@@ -150,4 +150,24 @@ public class InitialiseComponents {
         rightElements.add('#');
         return rightElements;
     }
+    public int getNonTerminalColumn(List<String> rulesLeft,char nonTerminal) {
+        int columnNumber = -1;
+        List<Character> leftElements = getTableLeftElements(rulesLeft);
+        for(int i=0; i<leftElements.size(); i++){
+            if(nonTerminal== leftElements.get(i)){
+                columnNumber=i;
+            }
+        }
+        return columnNumber;
+    }
+    public int getTerminalColumn(List<Character> rightElements,char terminal) {
+        int columnNumber = -1;
+
+        for(int i=0; i< rightElements.size(); i++){
+            if(terminal== rightElements.get(i)){
+                columnNumber=i;
+            }
+        }
+        return columnNumber;
+    }
 }
